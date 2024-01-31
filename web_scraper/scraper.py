@@ -17,11 +17,12 @@ def get_citations_needed_report(url):
     soup = BeautifulSoup(response.text, "html.parser")
     citations_needed = soup.find_all(class_='noprint Inline-Template Template-Fact')
 
-    citation_report = "These texts need citations: \n\n"
+    citation_report = "Citation needed for: \n\n"
 
     for citation in citations_needed:
-      citation_text = citation.find_previous().get_text() + "\n"
+      citation_text = citation.parent.get_text()
       citation_report += f"{citation_text}\n\n"
+      
     return citation_report
 
 # wasn't sure if this was needed but gpt said to add for the prints
